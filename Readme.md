@@ -9,6 +9,6 @@
 
 # 섹션 0. 순열과 조합   
 ## 1. 순열
-Link : [순열과 조합][https://github.com/JustDoYoung/Algorithm/blob/master/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4%EA%B3%BC%20%EC%A1%B0%ED%95%A9/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4%EA%B3%BC%20%EC%A1%B0%ED%95%A9.md "리드미"]
+Link : [순열](https://github.com/JustDoYoung/Algorithm/blob/master/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4%EA%B3%BC%20%EC%A1%B0%ED%95%A9/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4%EA%B3%BC%20%EC%A1%B0%ED%95%A9.md "리드미")
 
 ## 2. 조합
