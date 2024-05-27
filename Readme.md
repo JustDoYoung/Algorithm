@@ -11,3 +11,5 @@
 ### 1. [순열](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4.md "리드미")
 
 ### 2. [조합](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20%EC%A1%B0%ED%95%A9.md "리드미")
+
+### 3. [split() 구](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20split().md "리드미")
