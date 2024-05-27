@@ -7,7 +7,7 @@
    
 글 쓰는 솜씨도 없고 게으른 천성이라 또 하나의 과업이 어깨를 짓누르는 것 같아 머리가 아프지만 하나의 스탯을 늘린다는 생각으로 차근차근 작성해보려고 한다.   
 
-# 섹션 0. 순열과 조합   
+# 섹션 0. 0주차(C++의 기본)   
 ### 1. [순열](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4.md "리드미")
 
-### 2. 조합
+### 2. [조합](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20%EC%A1%B0%ED%95%A9.md "리드미")
