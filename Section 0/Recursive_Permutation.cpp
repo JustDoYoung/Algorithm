@@ -22,7 +22,7 @@ void makePermutation(int n, int r, int depth)
         return;
     }
 
-    for (int i = depth; i < r; i++)
+    for (int i = depth; i < n; i++)
     {
         swap(arr[i], arr[depth]);
         makePermutation(n, r, depth + 1);
