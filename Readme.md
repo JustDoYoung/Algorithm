@@ -15,4 +15,4 @@
 ### 3. [split() 구현](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20split().md "리드미")
 
 # 섹션 2. 2주차(그래프 이론, DFS, BFS)
-### 1. [그래프 이론](https://github.com/JustDoYoung/Algorithm/blob/master/Section%200/%EC%84%B9%EC%85%98%200.%20%EC%88%9C%EC%97%B4.md "리드미")
+### 1. [그래프 이론](https://github.com/JustDoYoung/Algorithm/blob/main/Section%202/%EC%84%B9%EC%85%98%202.%20%EA%B7%B8%EB%9E%98%ED%94%84%20%EC%9D%B4%EB%A1%A0.md "리드미")
