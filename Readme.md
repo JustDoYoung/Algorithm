@@ -22,4 +22,4 @@
 # etc
 ### 1. [인터뷰](https://github.com/JustDoYoung/Algorithm/blob/main/etc/Interview.md "리드미")
 ### 2. [코테 팁](https://github.com/JustDoYoung/Algorithm/blob/main/etc/Tips.md "리드미")
-### 3. [A* 알고리즘](https://github.com/JustDoYoung/Algorithm/blob/main/etc/Tips.md "리드미")
+### 3. [A* 알고리즘](https://github.com/JustDoYoung/Algorithm/blob/main/etc/Astar.md "리드미")
