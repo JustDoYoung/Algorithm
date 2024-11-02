@@ -19,5 +19,5 @@ int main()
             cout << i << ' ';
         cout << '\n';
 
-    } while (next_permutation(v.begin(), v.end()));
+    } while (next_permutation(v.begin(), v.end() - 1));
 }
