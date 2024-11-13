@@ -1,56 +1,77 @@
-#include "bits/stdc++.h"
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int N;
-char arr[70][70] = {'0'};
-
-string solve(int y, int x, int width)
-{
-    if (width == 1)
-        return string(1, arr[y][x]);
-
-    char now = arr[y][x];
-    string ans = "";
-
-    for (int j = y; j < y + width; j++)
-    {
-        for (int i = x; i < x + width; i++)
-        {
-            if (now != arr[j][i])
-            {
-                ans += '(';
-                ans += solve(y, x, width / 2);
-                ans += solve(y, x + width / 2, width / 2);
-                ans += solve(y + width / 2, x, width / 2);
-                ans += solve(y + width / 2, x + width / 2, width / 2);
-                ans += ')';
-
-                return ans;
-            }
-        }
-    }
-
-    return string(1, arr[y][x]);
-}
+set<char> s{'a', 'e', 'i', 'o', 'u'};
 
 int main()
 {
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    cin >> N;
-
-    for (int j = 0; j < N; j++)
+    while (true)
     {
         string input;
         cin >> input;
 
-        for (int i = 0; i < N; i++)
-            arr[j][i] = input[i];
-    }
+        if (input == "end")
+            break;
 
-    cout << solve(0, 0, N) << '\n';
+        pair<int, int> cnt = {0, 0}; //{자음, 모음}
+        char prev = '\0';
+        bool acceptable = true;
+        bool check = false;
+
+        for (char c : input)
+        {
+            if (prev == c)
+            {
+                if (cnt.second == 1 && (c == 'e' || c == 'o'))
+                {
+                    cnt.first = 0;
+                    cnt.second++;
+                    continue;
+                }
+
+                acceptable = false;
+                break;
+            }
+
+            if (s.find(c) != s.end())
+            {
+                check = true;
+                cnt.first = 0;
+                cnt.second++;
+
+                if (cnt.second >= 3)
+                {
+                    acceptable = false;
+                    break;
+                }
+            }
+            else
+            {
+                cnt.second = 0;
+                cnt.first++;
+
+                if (cnt.first >= 3 || prev == c)
+                {
+                    acceptable = false;
+                    break;
+                }
+            }
+
+            prev = c;
+        }
+
+        if (check == false)
+            acceptable = false;
+
+        if (acceptable)
+            cout << '<' << input << '>' << " is acceptable.\n";
+        else
+            cout << '<' << input << '>' << " is not acceptable.\n";
+    }
 
     return 0;
 }
