@@ -2,76 +2,73 @@
 
 using namespace std;
 
-set<char> s{'a', 'e', 'i', 'o', 'u'};
+int N;
+vector<string> v;
+
+string RemoveZero(string input)
+{
+    int s = 0;
+    for (s = 0; s < input.length() - 1; s++)
+    {
+        if (input[s] != '0')
+            break;
+    }
+
+    return input.substr(s);
+}
+
+void GetNumbers(string input)
+{
+    int s = 0;
+
+    for (int i = 0; i < input.length(); i++)
+    {
+        if (isalpha(input[i]))
+        {
+            string tmp = input.substr(s, i - s);
+            s = i + 1;
+
+            if (tmp == "")
+                continue;
+
+            v.push_back(RemoveZero(tmp));
+        }
+    }
+
+    if (s != input.length())
+    {
+        string tmp = input.substr(s);
+        v.push_back(RemoveZero(tmp));
+    }
+}
+
+bool Compare(string a, string b)
+{
+    if (a.length() == b.length())
+        return a < b;
+
+    return a.length() < b.length();
+}
 
 int main()
 {
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    while (true)
+    cin >> N;
+
+    while (N--)
     {
         string input;
         cin >> input;
 
-        if (input == "end")
-            break;
-
-        pair<int, int> cnt = {0, 0}; //{자음, 모음}
-        char prev = '\0';
-        bool acceptable = true;
-        bool check = false;
-
-        for (char c : input)
-        {
-            if (prev == c)
-            {
-                if (cnt.second == 1 && (c == 'e' || c == 'o'))
-                {
-                    cnt.first = 0;
-                    cnt.second++;
-                    continue;
-                }
-
-                acceptable = false;
-                break;
-            }
-
-            if (s.find(c) != s.end())
-            {
-                check = true;
-                cnt.first = 0;
-                cnt.second++;
-
-                if (cnt.second >= 3)
-                {
-                    acceptable = false;
-                    break;
-                }
-            }
-            else
-            {
-                cnt.second = 0;
-                cnt.first++;
-
-                if (cnt.first >= 3 || prev == c)
-                {
-                    acceptable = false;
-                    break;
-                }
-            }
-
-            prev = c;
-        }
-
-        if (check == false)
-            acceptable = false;
-
-        if (acceptable)
-            cout << '<' << input << '>' << " is acceptable.\n";
-        else
-            cout << '<' << input << '>' << " is not acceptable.\n";
+        GetNumbers(input);
     }
+
+    sort(v.begin(), v.end(), Compare);
+
+    for (string i : v)
+        cout << i << '\n';
 
     return 0;
 }
