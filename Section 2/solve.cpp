@@ -2,52 +2,44 @@
 
 using namespace std;
 
-int N;
-vector<string> v;
+int N, K;
+vector<int> arr(100004, -1);
 
-string RemoveZero(string input)
+size_t solve(size_t s, size_t e)
 {
-    int s = 0;
-    for (s = 0; s < input.length() - 1; s++)
+    queue<int> q;
+    arr[s] = 0;
+    q.push(s);
+
+    while (!q.empty())
     {
-        if (input[s] != '0')
-            break;
-    }
+        int now = q.front();
+        int cost = arr[now];
+        q.pop();
 
-    return input.substr(s);
-}
+        if (now == K)
+            return cost;
 
-void GetNumbers(string input)
-{
-    int s = 0;
-
-    for (int i = 0; i < input.length(); i++)
-    {
-        if (isalpha(input[i]))
+        if (now - 1 >= 0 && arr[now - 1] == -1)
         {
-            string tmp = input.substr(s, i - s);
-            s = i + 1;
+            q.push(now - 1);
+            arr[now - 1] = cost + 1;
+        }
 
-            if (tmp == "")
-                continue;
+        if (now + 1 <= 100004 && arr[now + 1] == -1)
+        {
+            q.push(now + 1);
+            arr[now + 1] = cost + 1;
+        }
 
-            v.push_back(RemoveZero(tmp));
+        if (2 * now <= 100004 && arr[2 * now] == -1)
+        {
+            q.push(2 * now);
+            arr[2 * now] = cost + 1;
         }
     }
 
-    if (s != input.length())
-    {
-        string tmp = input.substr(s);
-        v.push_back(RemoveZero(tmp));
-    }
-}
-
-bool Compare(string a, string b)
-{
-    if (a.length() == b.length())
-        return a < b;
-
-    return a.length() < b.length();
+    return -1;
 }
 
 int main()
@@ -55,20 +47,9 @@ int main()
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    cin >> N;
+    cin >> N >> K;
 
-    while (N--)
-    {
-        string input;
-        cin >> input;
-
-        GetNumbers(input);
-    }
-
-    sort(v.begin(), v.end(), Compare);
-
-    for (string i : v)
-        cout << i << '\n';
+    cout << solve(N, K) << '\n';
 
     return 0;
 }
