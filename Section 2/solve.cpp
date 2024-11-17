@@ -2,44 +2,24 @@
 
 using namespace std;
 
-int N, K;
-vector<int> arr(100004, -1);
+int T;
 
-size_t solve(size_t s, size_t e)
+size_t solve(int num)
 {
-    queue<int> q;
-    arr[s] = 0;
-    q.push(s);
+    int cnt2 = 0;
+    int cnt5 = 0;
 
-    while (!q.empty())
+    for (int i = 2; i <= num; i *= 2)
     {
-        int now = q.front();
-        int cost = arr[now];
-        q.pop();
-
-        if (now == K)
-            return cost;
-
-        if (now - 1 >= 0 && arr[now - 1] == -1)
-        {
-            q.push(now - 1);
-            arr[now - 1] = cost + 1;
-        }
-
-        if (now + 1 <= 100004 && arr[now + 1] == -1)
-        {
-            q.push(now + 1);
-            arr[now + 1] = cost + 1;
-        }
-
-        if (2 * now <= 100004 && arr[2 * now] == -1)
-        {
-            q.push(2 * now);
-            arr[2 * now] = cost + 1;
-        }
+        cnt2 += num / i;
     }
 
-    return -1;
+    for (int i = 5; i <= num; i *= 5)
+    {
+        cnt5 += num / i;
+    }
+
+    return min(cnt2, cnt5);
 }
 
 int main()
@@ -47,9 +27,15 @@ int main()
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    cin >> N >> K;
+    cin >> T;
 
-    cout << solve(N, K) << '\n';
+    while (T--)
+    {
+        int input;
+        cin >> input;
+
+        cout << solve(input) << '\n';
+    }
 
     return 0;
 }
