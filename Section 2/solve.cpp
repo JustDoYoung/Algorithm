@@ -2,40 +2,28 @@
 
 using namespace std;
 
-int T;
-
-size_t solve(int num)
-{
-    int cnt2 = 0;
-    int cnt5 = 0;
-
-    for (int i = 2; i <= num; i *= 2)
-    {
-        cnt2 += num / i;
-    }
-
-    for (int i = 5; i <= num; i *= 5)
-    {
-        cnt5 += num / i;
-    }
-
-    return min(cnt2, cnt5);
-}
+int N;
 
 int main()
 {
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    cin >> T;
+    cin >> N;
 
-    while (T--)
+    int num = 666;
+
+    while (true)
     {
-        int input;
-        cin >> input;
-
-        cout << solve(input) << '\n';
+        string num_s = to_string(num);
+        if (num_s.find("666") != string::npos)
+            N--;
+        if (N == 0)
+            break;
+        num++;
     }
+
+    cout << num << '\n';
 
     return 0;
 }
