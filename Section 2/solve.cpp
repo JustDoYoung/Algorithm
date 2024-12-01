@@ -2,69 +2,97 @@
 
 using namespace std;
 
-int N;
-char arr[65][65];
+int N, M;
+int mapGrid[10][10];
+bool visited[10][10];
 
-string quad(int y, int x, int w)
+vector<pair<int, int>> virus;
+vector<pair<int, int>> wall;
+
+int dx[4] = {0, 0, 1, -1};
+int dy[4] = {1, -1, 0, 0};
+
+void SpreadVirus(int y, int x)
 {
-    string ret = "";
-    stack<tuple<int, int, int, string>> s;
-    s.push({y, x, w, ""});
+    visited[y][x] = true;
 
-    while (!s.empty())
+    for (int i = 0; i < 4; i++)
     {
-        auto [cy, cx, w, close] = s.top();
-        char now = arr[cy][cx];
-        s.pop();
+        int nx = x + dx[i];
+        int ny = y + dy[i];
 
-        bool same = true;
-        for (int j = cy; j < cy + w; j++)
-        {
-            for (int i = cx; i < cx + w; i++)
-            {
-                if (arr[j][i] != now)
-                {
-                    ret += "(";
-                    s.push({cy + w / 2, cx + w / 2, w / 2, close + ")"});
-                    s.push({cy + w / 2, cx, w / 2, ""});
-                    s.push({cy, cx + w / 2, w / 2, ""});
-                    s.push({cy, cx, w / 2, ""});
-                    same = false;
-                    break;
-                }
-            }
-            if (!same)
-                break;
-        }
+        if (nx < 0 || nx >= M || ny < 0 || ny >= N)
+            continue;
+        if (visited[ny][nx] || mapGrid[ny][nx] == 1)
+            continue;
 
-        if (same)
+        SpreadVirus(ny, nx);
+    }
+}
+
+int solve()
+{
+    for (auto v : virus)
+    {
+        int y = v.first;
+        int x = v.second;
+
+        SpreadVirus(y, x);
+    }
+
+    // check walls
+    int cnt = 0;
+
+    for (int j = 0; j < N; j++)
+    {
+        for (int i = 0; i < M; i++)
         {
-            ret += now + close;
+            if (mapGrid[j][i] == 0 && visited[j][i] == false)
+                cnt++;
         }
     }
 
-    return ret;
+    return cnt;
 }
-
 int main()
 {
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    cin >> N;
+    cin >> N >> M;
 
-    for (int i = 0; i < N; i++)
+    for (int j = 0; j < N; j++)
     {
-        string input;
-        cin >> input;
-
-        for (int j = 0; j < N; j++)
+        for (int i = 0; i < M; i++)
         {
-            arr[i][j] = input[j];
+            cin >> mapGrid[j][i];
+            if (mapGrid[j][i] == 2)
+                virus.push_back({j, i});
+            else if (mapGrid[j][i] == 0)
+                wall.push_back({j, i});
         }
     }
 
-    cout << quad(0, 0, N) << '\n';
+    int ret = 0;
+    for (int a = 0; a < wall.size() - 2; a++)
+    {
+        for (int b = a + 1; b < wall.size() - 1; b++)
+        {
+            for (int c = b + 1; c < wall.size(); c++)
+            {
+                fill(&visited[0][0], &visited[0][0] + 10 * 10, false);
+                mapGrid[wall[a].first][wall[a].second] = 1;
+                mapGrid[wall[b].first][wall[b].second] = 1;
+                mapGrid[wall[c].first][wall[c].second] = 1;
+                ret = max(ret, solve());
+                mapGrid[wall[a].first][wall[a].second] = 0;
+                mapGrid[wall[b].first][wall[b].second] = 0;
+                mapGrid[wall[c].first][wall[c].second] = 0;
+            }
+        }
+    }
+
+    cout << ret << '\n';
 
     return 0;
 }
