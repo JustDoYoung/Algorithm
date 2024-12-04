@@ -2,52 +2,41 @@
 
 using namespace std;
 
-int N, M, cnt, ans1, ans2;
-int grid[103][103];
-bool visited[103][103];
+const int blank = -100;
+int N, start;
+vector<int> arr[54];
 
-int dy[4] = {0, 0, 1, -1};
-int dx[4] = {1, -1, 0, 0};
-
-void melt(int y, int x)
+int solve(int idx)
 {
-    visited[y][x] = true;
+    int cnt = 0;
 
-    if (grid[y][x] == 1)
+    stack<int> s;
+    s.push(start);
+
+    while (!s.empty())
     {
-        grid[y][x] = 0;
-        cnt++;
-        return;
-    }
+        int now = s.top();
+        s.pop();
 
-    for (int i = 0; i < 4; i++)
-    {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-
-        if (ny < 0 || ny >= N || nx < 0 || nx >= M)
-            continue;
-        if (visited[ny][nx])
+        if (now == idx)
             continue;
 
-        melt(ny, nx);
-    }
-
-    return;
-}
-
-bool isAllMelted()
-{
-    for (int j = 0; j < N; j++)
-    {
-        for (int i = 0; i < M; i++)
+        for (int i = 0; i < arr[now].size(); i++)
         {
-            if (grid[j][i] == 1)
-                return false;
+            if (arr[now][i] == idx)
+            {
+                arr[now].erase(arr[now].begin() + i--);
+                continue;
+            }
+
+            s.push(arr[now][i]);
         }
+
+        if (arr[now].size() == 0)
+            cnt++;
     }
 
-    return true;
+    return cnt;
 }
 
 int main()
@@ -55,31 +44,26 @@ int main()
     cin.tie(NULL);
     ios_base::sync_with_stdio(false);
 
-    cin >> N >> M;
+    cin >> N;
 
-    for (int j = 0; j < N; j++)
+    for (int i = 0; i < N; i++)
     {
-        for (int i = 0; i < M; i++)
+        int input;
+        cin >> input;
+
+        if (input == -1)
         {
-            cin >> grid[j][i];
+            start = i;
+            continue;
         }
+
+        arr[input].push_back(i);
     }
 
-    while (true)
-    {
-        fill(&visited[0][0], &visited[0][0] + 103 * 103, false);
-        cnt = 0;
+    int idx;
+    cin >> idx;
 
-        melt(0, 0);
-        ans2 = cnt;
-        ans1++;
-
-        if (isAllMelted())
-            break;
-    }
-
-    cout << ans1 << '\n'
-         << ans2 << '\n';
+    cout << solve(idx) << '\n';
 
     return 0;
 }
