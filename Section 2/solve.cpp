@@ -2,42 +2,10 @@
 
 using namespace std;
 
-const int blank = -100;
-int N, start;
-vector<int> arr[54];
-
-int solve(int idx)
-{
-    int cnt = 0;
-
-    stack<int> s;
-    s.push(start);
-
-    while (!s.empty())
-    {
-        int now = s.top();
-        s.pop();
-
-        if (now == idx)
-            continue;
-
-        for (int i = 0; i < arr[now].size(); i++)
-        {
-            if (arr[now][i] == idx)
-            {
-                arr[now].erase(arr[now].begin() + i--);
-                continue;
-            }
-
-            s.push(arr[now][i]);
-        }
-
-        if (arr[now].size() == 0)
-            cnt++;
-    }
-
-    return cnt;
-}
+int N;
+int nums[1000004];
+int ans[1000004];
+stack<int> st;
 
 int main()
 {
@@ -46,24 +14,25 @@ int main()
 
     cin >> N;
 
+    fill(&ans[0], &ans[N], -1);
+
     for (int i = 0; i < N; i++)
     {
-        int input;
-        cin >> input;
+        cin >> nums[i];
 
-        if (input == -1)
+        while (!st.empty() && nums[st.top()] < nums[i])
         {
-            start = i;
-            continue;
+            ans[st.top()] = nums[i];
+            st.pop();
         }
 
-        arr[input].push_back(i);
+        st.push(i);
     }
 
-    int idx;
-    cin >> idx;
-
-    cout << solve(idx) << '\n';
+    for (int i = 0; i < N; i++)
+    {
+        cout << ans[i] << ' ';
+    }
 
     return 0;
 }
